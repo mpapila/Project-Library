@@ -1,21 +1,22 @@
-const myLibrary = [
-    { title: "Book 1", author: "Mehmet Papila", isRead: true },
-    { title: "Book 2", author: "Bora Papila", isRead: false }
-];
-const bookList = document.querySelector(".books");
-const addBtn = document.querySelector(".addBtn");
-const inputTitle = document.querySelector(".inputTitle");
-const inputAuthor = document.querySelector(".inputAuthor")
-const addBookDisplay = document.querySelector(".addbook")
+
+function Book(title,author,isRead) {
+    this.title = title;
+    this.author = author;
+    this.isRead = isRead;
+};
+
+const bookOne = new Book('Yagmurcuk Kusu','Yasar Kemal', true);
+const myLibrary = [bookOne];
 
 function listBooks() {
     bookList.innerHTML = "";
     inputTitle.value = "";
     inputAuthor.value = "";
     for (let i = 0; i < myLibrary.length; i++) {
-        const removeBook = document.createElement("button")
-        const listUl = document.createElement("ul")
-        const listLi = document.createElement("li")
+        const changeStatus = document.createElement("button");
+        const removeBook = document.createElement("button");
+        const listUl = document.createElement("ul");
+        const listLi = document.createElement("li");
 
         listLi.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}`;
         if (myLibrary[i].isRead) {
@@ -23,11 +24,18 @@ function listBooks() {
         } else {
             listLi.textContent += ` Unread `
         }
+
+        changeStatus.textContent = 'Make Read/Unread'; // button for making read/unread
+        changeStatus.addEventListener('click', () => {
+            myLibrary[i].changeStatus();
+            listBooks();
+        })
         removeBook.textContent = 'Remove this Book';
         removeBook.addEventListener('click', () => {
             myLibrary.splice(i, 1);
             listBooks();
         })
+        listLi.appendChild(changeStatus);
         listLi.appendChild(removeBook);
 
 
@@ -35,25 +43,37 @@ function listBooks() {
         listUl.appendChild(listLi);
     }
 }
+Book.prototype.changeStatus = function() {
+    this.isRead = !this.isRead;
+};
+
+const bookList = document.querySelector(".books");
+const addBtn = document.querySelector(".addBtn");
+const inputTitle = document.querySelector(".inputTitle");
+const inputAuthor = document.querySelector(".inputAuthor")
+const addBookDisplay = document.querySelector(".addbook")
+
+
 
 listBooks();
-function Book() {
-};
-function AddBook() {
+
+function showAddBook() {
     if (addBookDisplay.style.display === "none") {
         addBookDisplay.style.display = "block";
     } else {
         addBookDisplay.style.display = "none";
     }
 }
-function addBookToLibrary() {
+function addBookToLibrary(title,author,isRead) {
 
     addBtn.addEventListener('click', () => {
 
-
-        let bookTitle = inputTitle.value;
-        let bookAuthor = inputAuthor.value;
-        myLibrary.push({ title: bookTitle, author: bookAuthor, isRead: false });
+        
+        let title = inputTitle.value;
+        let author = inputAuthor.value;
+        let isRead = document.getElementById('read').checked;
+        const newBook = new Book(title,author,isRead)
+        myLibrary.push(newBook);
 
         listBooks();
     })

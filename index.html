@@ -11,11 +11,13 @@
 <body>
     <div class="bookListContainer"></div>
     <div class="books"></div>
-    <button id="hideAdd" onclick="AddBook()">Add Book</button>
+    <button id="hideAdd" onclick="showAddBook()">Add Book</button>
     <div class="addbook" style="display: none;">
         <input type="text" class="inputTitle" placeholder="Enter book title">
         <input type="text" class="inputAuthor" placeholder="Enter author">
-        <button class="addBtn">Click to Add Books</button>
+        <input type="checkbox" id="read" name="read" value="read">
+        <label for="read">Read</label>
+    <button class="addBtn">Click to Add Books</button>
     </div>
 
 
