@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body><div class="bookListContainer"></div>
+
+<body>
+    <div class="bookListContainer"></div>
     <div class="books"></div>
-        <input type="text" class="addToBooks">
+    <button id="hideAdd" onclick="AddBook()">Add Book</button>
+    <div class="addbook" style="display: none;">
+        <input type="text" class="inputTitle" placeholder="Enter book title">
+        <input type="text" class="inputAuthor" placeholder="Enter author">
         <button class="addBtn">Click to Add Books</button>
-    
+    </div>
+
+
     <script src="./main.js"></script>
 </body>
+
 </html>

@@ -4,37 +4,57 @@ const myLibrary = [
 ];
 const bookList = document.querySelector(".books");
 const addBtn = document.querySelector(".addBtn");
-const input = document.querySelector(".addToBooks");
+const inputTitle = document.querySelector(".inputTitle");
+const inputAuthor = document.querySelector(".inputAuthor")
+const addBookDisplay = document.querySelector(".addbook")
 
 function listBooks() {
     bookList.innerHTML = "";
-    input.value = "";
+    inputTitle.value = "";
+    inputAuthor.value = "";
     for (let i = 0; i < myLibrary.length; i++) {
+        const removeBook = document.createElement("button")
         const listUl = document.createElement("ul")
         const listLi = document.createElement("li")
-        listLi.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}`;
 
+        listLi.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}`;
         if (myLibrary[i].isRead) {
-            listLi.textContent += ` Read`
+            listLi.textContent += ` Read `
         } else {
-            listLi.textContent += ` Unread`
+            listLi.textContent += ` Unread `
         }
+        removeBook.textContent = 'Remove this Book';
+        removeBook.addEventListener('click', () => {
+            myLibrary.splice(i, 1);
+            listBooks();
+        })
+        listLi.appendChild(removeBook);
+
+
         bookList.appendChild(listUl);
         listUl.appendChild(listLi);
     }
-console.log(myLibrary)
 }
+
 listBooks();
 function Book() {
 };
+function AddBook() {
+    if (addBookDisplay.style.display === "none") {
+        addBookDisplay.style.display = "block";
+    } else {
+        addBookDisplay.style.display = "none";
+    }
+}
 function addBookToLibrary() {
-    
-    addBtn.addEventListener('click',() => {
 
-    
-        let myItem = input.value;
-        myLibrary.push({ title: myItem, author:"Unknown", isRead: false});
-        
+    addBtn.addEventListener('click', () => {
+
+
+        let bookTitle = inputTitle.value;
+        let bookAuthor = inputAuthor.value;
+        myLibrary.push({ title: bookTitle, author: bookAuthor, isRead: false });
+
         listBooks();
     })
 }
